@@ -1,0 +1,42 @@
+Instellingen Apache2:
+--------------------
+
+apt-get install apache2
+
+apt-get install php5
+
+apt-get install phpmyadmin
+
+mysql login:
+	weysense
+	rDwubutKdzsTwXPE
+
+a2enmod rewrite
+a2enmod ssl
+
+/etc/apache2/sites-available/default
+	<VirtualHost ...>
+		Redirect permanent /admin https://159.253.7.129/admin
+
+		<Directory />
+			...
+			AllowOverride All
+		</Directory>
+		<Directory /var/www/>
+			...
+			AllowOverride All
+			...
+
+	</VirtualHost>
+	
+	<VirtualHost 159.253.7.129:443>
+        	SSLEngine On
+        	SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
+        	SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+        	ServerName secure.janw.vlan77.be
+        	DocumentRoot /var/www/
+        	ErrorLog /var/log/apache2/error.log
+        	CustomLog /var/log/apache2/access.log combined
+	</VirtualHost>
+

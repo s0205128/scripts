@@ -1,0 +1,7 @@
+Instellingen: SSH
+-----------------
+
+apt-get install openssh-server
+
+/etc/ssh/sshd_config
+	Port 22345

@@ -1,0 +1,14 @@
+# User die voor backup zorgen:
+
+praktijk:20692069 --> automatische backup files Public Y van mama --> server
+
+#C:\backup\ --> alle files
+
+# HealthOne backup
+Bijhouden:
+	daily: max 7 --> 14:00
+	weekly: max 4 --> monday
+	Monthly: max 6 --> 01 month
+	Yearly: no max --> 31/12
+
+--> /etc/scripts/backup_healthOne.sh

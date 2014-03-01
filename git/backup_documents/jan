@@ -1,0 +1,20 @@
+apt-get install rsync
+
+Alle backups van laptop jan naar:
+	/backups/jan/
+
+met behulp van rsync & incrontab
+
+jakke-laptop:
+	sudo vim /etc/incrontab.allow
+		jakke
+
+	incrontab -e --> als user jakke
+		/home/jakke/Documents/ IN_MODIFY rsync -avz -e 'ssh -p 22345' --progress /home/jakke/Documents/ root@159.253.7.129:/backups/jan/
+
+# scripts
+# /etc/cron.daily/daily_backup.sh
+--> max 7 backups bijhouden
+
+# /etc/cron.weekly/weekly_backup.sh
+--> max 2 backups bijhouden

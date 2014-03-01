@@ -1,0 +1,65 @@
+Instellingen FTP:
+----------------
+
+Uploaden van files voor praktijk_pc:
+	mkdir /home/upload
+	useradd praktijk
+	passwd praktijk
+		20692069
+	usermod -d /incoming upload
+	usermod -G sftp upload
+
+apt-get install vsftpd
+
+useradd ftp_jan
+passwd ftp_jan
+	17januari
+groupadd sftp
+usermod -d /incoming ftp_jan
+usermod -G sftp ftp_jan
+
+vim /etc/ssh/sshd_config
+	#Subsystem sftp /usr/lib/openssh/sftp-server
+
+	Subsystem sftp internal-sftp
+
+	Match Group sftp
+        	ChrootDirectory /home/%u
+        	AllowTCPForwarding no
+       		X11Forwarding no
+        	ForceCommand internal-sftp
+
+vim /etc/vsftpd.conf
+	anonymous_enable = NO
+	local_enable=YES
+	write_enable=YES
+	chroot_local_user=YES
+
+
+	rsa_cert_file=/etc/ssl/private/vsftpd.pem
+
+	# Turn on SSL
+	ssl_enable=YES
+
+	# All non-anonymous logins are forced to use a secure SSL connection in order to
+	# send and receive data on data connections.
+	force_local_data_ssl=YES
+
+	# All non-anonymous logins are forced to use a secure SSL connection in order to send the password.
+	force_local_logins_ssl=YES
+
+	# Permit TLS v1 protocol connections. TLS v1 connections are preferred
+	ssl_tlsv1=YES
+
+	# Permit SSL v2 protocol connections. TLS v1 connections are preferred
+	ssl_sslv2=NO
+
+	# permit SSL v3 protocol connections. TLS v1 connections are preferred
+	ssl_sslv3=NO
+
+	# Disable SSL session reuse (required by WinSCP)
+	require_ssl_reuse=NO
+
+	# Select which SSL ciphers vsftpd will allow for encrypted SSL connections (required by FileZilla)
+	ssl_ciphers=HIGH
+
